@@ -29,6 +29,7 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.createXmlFile = new System.Windows.Forms.Button();
             this.employeeId = new System.Windows.Forms.Label();
             this.lastName = new System.Windows.Forms.Label();
@@ -40,6 +41,14 @@ namespace WindowsFormsApp1
             this.birthDayTextBox = new System.Windows.Forms.TextBox();
             this.submitButton = new System.Windows.Forms.Button();
             this.createTextFileButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).BeginInit();
             this.SuspendLayout();
             // 
             // createXmlFile
@@ -94,6 +103,7 @@ namespace WindowsFormsApp1
             this.employeeIdTextBox.Name = "employeeIdTextBox";
             this.employeeIdTextBox.Size = new System.Drawing.Size(270, 26);
             this.employeeIdTextBox.TabIndex = 7;
+            this.employeeIdTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.employeeIdTextBox_Validating);
             // 
             // lastNameTextBox
             // 
@@ -101,6 +111,7 @@ namespace WindowsFormsApp1
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(270, 26);
             this.lastNameTextBox.TabIndex = 8;
+            this.lastNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lastNameTextBox_Validating);
             // 
             // firstNameTextBox
             // 
@@ -108,6 +119,7 @@ namespace WindowsFormsApp1
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(270, 26);
             this.firstNameTextBox.TabIndex = 9;
+            this.firstNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.firstNameTextBox_Validating);
             // 
             // birthDayTextBox
             // 
@@ -115,6 +127,7 @@ namespace WindowsFormsApp1
             this.birthDayTextBox.Name = "birthDayTextBox";
             this.birthDayTextBox.Size = new System.Drawing.Size(270, 26);
             this.birthDayTextBox.TabIndex = 10;
+            this.birthDayTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.birthDayTextBox_Validating);
             // 
             // submitButton
             // 
@@ -136,6 +149,22 @@ namespace WindowsFormsApp1
             this.createTextFileButton.UseVisualStyleBackColor = true;
             this.createTextFileButton.Click += new System.EventHandler(this.createTextFileButton_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // errorProvider2
+            // 
+            this.errorProvider2.ContainerControl = this;
+            // 
+            // errorProvider3
+            // 
+            this.errorProvider3.ContainerControl = this;
+            // 
+            // errorProvider4
+            // 
+            this.errorProvider4.ContainerControl = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -154,6 +183,10 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.createXmlFile);
             this.Name = "Form1";
             this.Text = "Form";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,6 +204,10 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox birthDayTextBox;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Button createTextFileButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider errorProvider2;
+        private System.Windows.Forms.ErrorProvider errorProvider3;
+        private System.Windows.Forms.ErrorProvider errorProvider4;
     }
 }
 
