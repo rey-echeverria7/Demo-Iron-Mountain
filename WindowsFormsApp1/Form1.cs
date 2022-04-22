@@ -139,7 +139,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al conectarse a la BD...");
+                MessageBox.Show("Revise que los campos esten correctos...");
                 connection.Close();
             }
         }
@@ -177,7 +177,7 @@ namespace WindowsFormsApp1
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Admite solo 30 carácteres");
             }
-            else if (System.Text.RegularExpressions.Regex.IsMatch(lastNameTextBox.Text, "[a-zA-Z]") == false)
+            else if (System.Text.RegularExpressions.Regex.IsMatch(lastNameTextBox.Text, @"^[a-zA-Z,]+$") == false)
             {
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Solo a-z y comas");
@@ -194,10 +194,10 @@ namespace WindowsFormsApp1
                 firstNameTextBox.Focus();
                 errorProvider3.SetError(firstNameTextBox, "Admite solo 30 carácteres");
             }
-            else if (System.Text.RegularExpressions.Regex.IsMatch(firstNameTextBox.Text, "^[a-zA-Z]$"))
+            else if (System.Text.RegularExpressions.Regex.IsMatch(firstNameTextBox.Text, @"^[a-zA-Z,]+$")==false)
             {
                 lastNameTextBox.Focus();
-                errorProvider2.SetError(lastNameTextBox, "Solo a-z y comas");
+                errorProvider3.SetError(lastNameTextBox, "Solo a-z y comas");
             }
             else
             {
@@ -213,7 +213,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: " + ex);
+                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: ");
             }
 
             if (string.IsNullOrEmpty(birthDayTextBox.Text))
