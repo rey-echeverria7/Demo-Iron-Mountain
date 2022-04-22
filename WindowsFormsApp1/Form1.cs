@@ -70,6 +70,36 @@ namespace WindowsFormsApp1
         private void createTextFileButton_Click(object sender, EventArgs e)
         {
 
+            DataTable employees = new DataTable();
+
+            try
+            {
+                connection.Open();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+                command.CommandText = "select * from Employees";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+
+                adapter.Fill(employees);
+                connection.Close();
+
+                foreach (DataRow row in employees.Rows)
+                {
+                    string id = row["EmployeeID"].ToString();
+                    string lastName = row["LastName"].ToString();
+                    string firstName = row["FirstName"].ToString();
+                    string birthday = row["DOB"].ToString();
+
+                    Console.WriteLine(id+"|"+lastName + "|"+firstName + "|"+birthday);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void createXML()
@@ -89,7 +119,7 @@ namespace WindowsFormsApp1
             {
                 e.Cancel = true;
                 employeeIdTextBox.Focus();
-                errorProvider1.SetError(employeeIdTextBox, "ID debe contener caracteres");
+                errorProvider1.SetError(employeeIdTextBox, "ID debe contener 8 numeros");
             }
             else if (System.Text.RegularExpressions.Regex.IsMatch(employeeIdTextBox.Text, "[^0-9]"))
             {
@@ -118,7 +148,7 @@ namespace WindowsFormsApp1
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Admite solo 30 carácteres");
             }
-            else if (System.Text.RegularExpressions.Regex.IsMatch(employeeIdTextBox.Text, @"[a-z,]"))
+            else if (System.Text.RegularExpressions.Regex.IsMatch(lastNameTextBox.Text, "[a-zA-Z]")==false)
             {
                 e.Cancel = true;
                 lastNameTextBox.Focus();
@@ -141,7 +171,7 @@ namespace WindowsFormsApp1
                 firstNameTextBox.Focus();
                 errorProvider3.SetError(firstNameTextBox, "Admite solo 30 carácteres");
             }
-            else if (System.Text.RegularExpressions.Regex.IsMatch(employeeIdTextBox.Text, @"[a-z,]"))
+            else if (System.Text.RegularExpressions.Regex.IsMatch(firstNameTextBox.Text, "^[a-zA-Z]$"))
             {
                 e.Cancel = true;
                 lastNameTextBox.Focus();
