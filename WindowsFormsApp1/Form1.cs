@@ -28,11 +28,92 @@ namespace WindowsFormsApp1
 
         }
 
-
-
         private void createXmlFile_Click(object sender, EventArgs e)
         {
+            DataTable employees = new DataTable();
+            
+            try
+            {
+                connection.Open();
 
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+                command.CommandText = "select * from Employees";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+
+                adapter.Fill(employees);
+                connection.Close();
+
+                if (employees != null)
+                {
+                    if (employees.Rows.Count > 0)
+                    {
+                        DataSet ds = new DataSet();
+                        ds.Tables.Add(employees);
+                        ds.DataSetName = "Employees";
+                        employees.TableName = "Employee";
+                        ds.WriteXml(@"C:\Users\user\Desktop\Rey\Demo .net/employeesXML.xml");
+                        MessageBox.Show("Archivo XML creado!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay empleados registrados");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
+            }
+        }
+
+        private void createTextFileButton_Click(object sender, EventArgs e)
+        {
+
+            DataTable employees = new DataTable();
+
+            try
+            {
+                connection.Open();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+                command.CommandText = "select * from Employees";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+
+                adapter.Fill(employees);
+                connection.Close();
+
+                if (employees != null)
+                {
+                    if (employees.Rows.Count > 0)
+                    {
+                        StreamWriter employeeRecords = new StreamWriter(@"C:\Users\user\Desktop\Rey\Demo .net/employees.txt");
+
+                        foreach (DataRow row in employees.Rows)
+                        {
+                            string id = row["EmployeeID"].ToString();
+                            string lastName = row["LastName"].ToString();
+                            string firstName = row["FirstName"].ToString();
+                            string birthday = row["DOB"].ToString();
+
+                            employeeRecords.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
+                            MessageBox.Show("Archivo de texto creado!");
+                        }
+                        employeeRecords.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay empleados registrados");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
+            }
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -66,52 +147,6 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("Error al conectarse a la BD..." + ex);
             }
-        }
-
-        private void createTextFileButton_Click(object sender, EventArgs e)
-        {
-
-            DataTable employees = new DataTable();
-
-            try
-            {
-                connection.Open();
-
-                OleDbCommand command = new OleDbCommand();
-                command.Connection = connection;
-                command.CommandText = "select * from Employees";
-
-                OleDbDataAdapter adapter = new OleDbDataAdapter(command);
-
-                adapter.Fill(employees);
-                connection.Close();
-
-                if (employees!=null) {
-                    StreamWriter employeeRecords = new StreamWriter(@"C:\Users\user\Desktop\Rey\Demo .net/employees.txt");
-
-                    foreach (DataRow row in employees.Rows)
-                    {
-                        string id = row["EmployeeID"].ToString();
-                        string lastName = row["LastName"].ToString();
-                        string firstName = row["FirstName"].ToString();
-                        string birthday = row["DOB"].ToString();
-
-                        employeeRecords.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
-                        Console.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
-                    }
-                    employeeRecords.Close();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
-            }
-        }
-
-        private void createXML()
-        {
-
         }
 
         private void employeeIdTextBox_Validating(object sender, CancelEventArgs e)
@@ -204,7 +239,7 @@ namespace WindowsFormsApp1
             catch (Exception ex)
             {
 
-                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy");
+                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: "+ex);
             }
 
             if (string.IsNullOrEmpty(birthDayTextBox.Text))
