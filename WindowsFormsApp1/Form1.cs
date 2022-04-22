@@ -139,7 +139,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Revise que los campos esten correctos...");
+                MessageBox.Show("Revise que los campos esten correctos..." + ex);
                 connection.Close();
             }
         }
@@ -213,7 +213,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: ");
+                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: "+ex);
             }
 
             if (string.IsNullOrEmpty(birthDayTextBox.Text))
