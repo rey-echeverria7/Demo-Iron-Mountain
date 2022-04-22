@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -85,20 +86,26 @@ namespace WindowsFormsApp1
                 adapter.Fill(employees);
                 connection.Close();
 
-                foreach (DataRow row in employees.Rows)
-                {
-                    string id = row["EmployeeID"].ToString();
-                    string lastName = row["LastName"].ToString();
-                    string firstName = row["FirstName"].ToString();
-                    string birthday = row["DOB"].ToString();
+                if (employees!=null) {
+                    StreamWriter employeeRecords = new StreamWriter(@"C:\Users\user\Desktop\Rey\Demo .net/employees.txt");
 
-                    Console.WriteLine(id+"|"+lastName + "|"+firstName + "|"+birthday);
+                    foreach (DataRow row in employees.Rows)
+                    {
+                        string id = row["EmployeeID"].ToString();
+                        string lastName = row["LastName"].ToString();
+                        string firstName = row["FirstName"].ToString();
+                        string birthday = row["DOB"].ToString();
+
+                        employeeRecords.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
+                        Console.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
+                    }
+                    employeeRecords.Close();
                 }
 
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
             }
         }
 
