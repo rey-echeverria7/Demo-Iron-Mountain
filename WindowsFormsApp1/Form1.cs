@@ -28,7 +28,7 @@ namespace WindowsFormsApp1
         private void createXmlFile_Click(object sender, EventArgs e)
         {
             DataTable employees = new DataTable();
-          
+
             try
             {
                 connection.Open();
@@ -93,7 +93,7 @@ namespace WindowsFormsApp1
                             string firstName = row["FirstName"].ToString();
                             string birthday = row["DOB"].ToString();
 
-                            employeeRecords.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);   
+                            employeeRecords.WriteLine(id + "|" + lastName + "|" + firstName + "|" + birthday);
                         }
                         MessageBox.Show("Archivo de texto creado!");
                         employeeRecords.Close();
@@ -115,13 +115,14 @@ namespace WindowsFormsApp1
             try
             {
                 connection.Open();
-
+                date = DateTime.ParseExact(birthDayTextBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-                command.CommandText = "insert into Employees (EmployeeID, LastName, FirstName, DOB) values ('" + employeeIdTextBox.Text + "','" + lastNameTextBox.Text + "','" + firstNameTextBox.Text + "','" + DateTime.ParseExact(birthDayTextBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None).ToShortDateString()+ "')";
+                string query = "insert into Employees (EmployeeID, LastName, FirstName, DOB) values ('" + employeeIdTextBox.Text + "','" + lastNameTextBox.Text + "','" + firstNameTextBox.Text + "','" + DateTime.ParseExact(birthDayTextBox.Text, "MMddyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None).ToShortDateString() + "')";
 
-                if (employeeIdTextBox.Text != "" && lastNameTextBox.Text != "" && birthDayTextBox.Text != "")
+                if (employeeIdTextBox.Text != "" && lastNameTextBox.Text != "" && birthDayTextBox.Text != "" && date < DateTime.Now)
                 {
+                    command.CommandText = query;
                     command.ExecuteNonQuery();
                     MessageBox.Show("Empleado insertado correctamente!");
                     connection.Close();
@@ -132,74 +133,74 @@ namespace WindowsFormsApp1
                 }
                 else
                 {
-                    MessageBox.Show("Debe ingresar los valores en los campos correspondientes");
+                    MessageBox.Show("Revise que todos los campos esten completos");
                     connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al conectarse a la BD..." + ex);
+                MessageBox.Show("Error al conectarse a la BD...");
                 connection.Close();
             }
         }
         private void employeeIdTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(employeeIdTextBox.Text))
-            {              
+            {
                 employeeIdTextBox.Focus();
                 errorProvider1.SetError(employeeIdTextBox, "Ingrese un ID");
             }
             else if (employeeIdTextBox.Text.Length > 8 || employeeIdTextBox.Text.Length < 8)
-            {             
+            {
                 employeeIdTextBox.Focus();
                 errorProvider1.SetError(employeeIdTextBox, "ID debe contener 8 numeros");
             }
             else if (System.Text.RegularExpressions.Regex.IsMatch(employeeIdTextBox.Text, "[^0-9]"))
-            {               
+            {
                 employeeIdTextBox.Focus();
                 errorProvider1.SetError(employeeIdTextBox, "ID solo caracteres numéricos");
             }
             else
-            {                
+            {
                 errorProvider1.SetError(employeeIdTextBox, "");
             }
         }
         private void lastNameTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(lastNameTextBox.Text))
-            {               
+            {
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Ingrese el Apellido");
             }
-            else if (lastNameTextBox.Text.Length > 30 )
-            {               
+            else if (lastNameTextBox.Text.Length > 30)
+            {
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Admite solo 30 carácteres");
             }
-            else if (System.Text.RegularExpressions.Regex.IsMatch(lastNameTextBox.Text, "[a-zA-Z]")==false)
-            {             
+            else if (System.Text.RegularExpressions.Regex.IsMatch(lastNameTextBox.Text, "[a-zA-Z]") == false)
+            {
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Solo a-z y comas");
             }
             else
-            {                
+            {
                 errorProvider2.SetError(lastNameTextBox, "");
             }
         }
         private void firstNameTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (firstNameTextBox.Text.Length > 30)
-            {                
+            {
                 firstNameTextBox.Focus();
                 errorProvider3.SetError(firstNameTextBox, "Admite solo 30 carácteres");
             }
             else if (System.Text.RegularExpressions.Regex.IsMatch(firstNameTextBox.Text, "^[a-zA-Z]$"))
-            {               
+            {
                 lastNameTextBox.Focus();
                 errorProvider2.SetError(lastNameTextBox, "Solo a-z y comas");
             }
             else
-            {               
+            {
                 errorProvider3.SetError(firstNameTextBox, "");
             }
         }
@@ -212,7 +213,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: "+ex);
+                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: " + ex);
             }
 
             if (string.IsNullOrEmpty(birthDayTextBox.Text))
@@ -221,12 +222,12 @@ namespace WindowsFormsApp1
                 errorProvider4.SetError(birthDayTextBox, "Ingrese cumpleaños");
             }
             else if (birthDayTextBox.Text.Length > 8)
-            {   
+            {
                 birthDayTextBox.Focus();
                 errorProvider4.SetError(birthDayTextBox, "Formato fecha incorrecto");
             }
-            else if (date>DateTime.Now)
-            {  
+            else if (date > DateTime.Now)
+            {
                 birthDayTextBox.Focus();
                 errorProvider4.SetError(birthDayTextBox, "La fecha no ha pasado");
             }
@@ -236,5 +237,5 @@ namespace WindowsFormsApp1
             }
         }
 
-    } 
+    }
 }
