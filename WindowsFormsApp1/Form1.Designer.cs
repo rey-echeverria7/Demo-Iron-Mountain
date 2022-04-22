@@ -183,6 +183,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.createXmlFile);
             this.Name = "Form1";
             this.Text = "Form";
+            
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
