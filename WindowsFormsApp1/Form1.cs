@@ -61,7 +61,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
+                MessageBox.Show("Error al recuperar los registros de la BD");
             }
         }
         private void createTextFileButton_Click(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al recuperar los registros de la BD" + ex);
+                MessageBox.Show("Error al recuperar los registros de la BD");
             }
         }
 
@@ -139,7 +139,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Revise que los campos esten correctos..." + ex);
+                MessageBox.Show("Revise que los campos esten correctos...");
                 connection.Close();
             }
         }
@@ -214,7 +214,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: "+ex);
+                MessageBox.Show("Formato de fecha incorrecto: debe estar en formato MMddyyyy: ");
             }
 
             if (string.IsNullOrEmpty(birthDayTextBox.Text))
