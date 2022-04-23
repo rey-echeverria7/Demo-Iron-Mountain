@@ -1,0 +1,5 @@
+11111111|Echeverria,Ruelas|Rey|18/01/1999
+22222222|Snow|Jon|19/01/1999
+33333333|Targaryen|Daenerys|01/12/1999
+44444444|Mclovin||03/06/1981
+55555555|Lannister|Tyrion|01/01/1973
