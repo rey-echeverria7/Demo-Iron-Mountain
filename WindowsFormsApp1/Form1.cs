@@ -184,6 +184,7 @@ namespace WindowsFormsApp1
             }
             else
             {
+                e.Cancel=false;
                 errorProvider2.SetError(lastNameTextBox, "");
             }
         }
